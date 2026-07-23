@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locksley Vault | Secure Vault on Robinhood Chain</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+            --primary-green: #00c853;
+            --primary-green-hover: #00b048;
+            --accent-gold: #d4af37;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Header & Navbar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--border-color);
+            background-color: rgba(13, 17, 23, 0.85);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-container img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text span {
+            color: var(--accent-gold);
+            display: block;
+            font-size: 0.75rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary-green);
+        }
+
+        .btn-connect {
+            background-color: var(--primary-green);
+            color: #000;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-connect:hover {
+            background-color: var(--primary-green-hover);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 100px 20px 60px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+
+        .hero h1 span {
+            color: var(--primary-green);
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.125rem;
+            margin-bottom: 30px;
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-green);
+            color: #000;
+            padding: 12px 24px;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-green-hover);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 12px 24px;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: border-color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-gold);
+        }
+
+        /* Stats Bar */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin: 40px auto 80px;
+            padding: 0 20px;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 1.75rem;
+            color: var(--accent-gold);
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Vault Section */
+        .vault-section {
+            max-width: 1000px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .vault-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .vault-item {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .vault-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-green);
+        }
+
+        .vault-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .vault-name {
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+
+        .vault-apy {
+            background-color: rgba(0, 200, 83, 0.1);
+            color: var(--primary-green);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .vault-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-vault {
+            width: 100%;
+            background-color: var(--border-color);
+            color: var(--text-main);
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .vault-item:hover .btn-vault {
+            background-color: var(--primary-green);
+            color: #000;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <div class="logo-container">
+            <!-- Ganti src dengan link gambar logo Anda -->
+            <img src="https://via.placeholder.com/40" alt="Locksley Vault Logo">
+            <div class="logo-text">
+                Locksley Vault
+                <span>Robinhood Chain</span>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Dashboard</a></li>
+                <li><a href="#vaults">Vaults</a></li>
+                <li><a href="#">Analytics</a></li>
+                <li><a href="#">Governance</a></li>
+            </ul>
+        </nav>
+        <button class="btn-connect">Connect Wallet</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Secure Wealth in the Heart of <span>Sherwood</span></h1>
+        <p>The premier secure vault and RWA asset management protocol built on Robinhood Chain. Institutional-grade security for your digital assets.</p>
+        <div class="hero-btns">
+            <a href="#vaults" class="btn-primary">Explore Vaults</a>
+            <a href="#" class="btn-secondary">Read Docs</a>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <h3>$45.8M</h3>
+            <p>Total Value Locked (TVL)</p>
+        </div>
+        <div class="stat-card">
+            <h3>14.2%</h3>
+            <p>Average APY</p>
+        </div>
+        <div class="stat-card">
+            <h3>12,450</h3>
+            <p>Active Vault Users</p>
+        </div>
+    </div>
+
+    <!-- Vaults List Section -->
+    <section class="vault-section" id="vaults">
+        <h2 class="section-title">Available Vaults</h2>
+        <div class="vault-grid">
+            <!-- Vault Card 1 -->
+            <div class="vault-item">
+                <div class="vault-header">
+                    <span class="vault-name">Robinhood RWA Pool</span>
+                    <span class="vault-apy">16.5% APY</span>
+                </div>
+                <p class="vault-desc">Tokenized real-world assets and secure equity yield optimized for Robinhood Chain.</p>
+                <button class="btn-vault">Deposit Asset</button>
+            </div>
+            <!-- Vault Card 2 -->
+            <div class="vault-item">
+                <div class="vault-header">
+                    <span class="vault-name">Stablecoin Citadel</span>
+                    <span class="vault-apy">11.8% APY</span>
+                </div>
+                <p class="vault-desc">Low-risk stablecoin locking strategy with high-yield collateral protection.</p>
+                <button class="btn-vault">Deposit Asset</button>
+            </div>
+            <!-- Vault Card 3 -->
+            <div class="vault-item">
+                <div class="vault-header">
+                    <span class="vault-name">Sherwood Staking Vault</span>
+                    <span class="vault-apy">22.4% APY</span>
+                </div>
+                <p class="vault-desc">Lock governance and ecosystem utility tokens to earn maximum protocol rewards.</p>
+                <button class="btn-vault">Deposit Asset</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Locksley Vault. Built on Robinhood Chain. All rights reserved.</p>
+    </footer>
+
+</body>
+          </html>
+          
